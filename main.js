@@ -22,31 +22,16 @@ if (!port) {
   process.exit();
 }
 // Створення сервера
-const server = http.createServer((req, res) => {
+const server = http.createServer((req, res) => { //Створення сервера, що приймає функцію-обробник (req, res)
     const url = new URL(req.url, `http://${host}:${port}`);
     const furnished = url.searchParams.get('furnished') === 'true';
     const maxPrice = url.searchParams.get('max_price')?parseFloat(url.searchParams.get('max_price')):null;
 
     readFile(input, 'utf-8', (err, data) => {
-    if (err) {
-      console.error('Cannot find input file');
-      res.writeHead(500, { 'Content-Type': 'text/plain' });
-      res.end('Cannot find input file');
-      return;
-    }
 
     // Перетворення JSON Lines → масив об'єктів
     const lines = data.split('\n').filter(line => line.trim() !== '');
-    let houses = [];
-
-    try {
-      houses = lines.map(line => JSON.parse(line));
-    } catch (parseError) {
-      console.error('Error parsing JSON Lines:', parseError);
-      res.writeHead(500, { 'Content-Type': 'text/plain' });
-      res.end('Invalid JSON Lines format');
-      return;
-    }
+    let houses = lines.map(line => JSON.parse(line));
 
     //Фільтрація запиту
 
