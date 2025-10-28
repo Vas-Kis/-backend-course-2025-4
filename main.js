@@ -36,14 +36,16 @@ const server = http.createServer((req, res) => { //Створення серве
     //Фільтрація запиту
 
     let filtered = houses;
+
     if (furnished) {
       filtered = filtered.filter(
-        (h) => h.furnishingstatus && h.furnishingstatus.toLowerCase() === 'furnished'
+        h => h.furnishingstatus.toLowerCase() === furnished.toLowerCase()
       );
     }
-    if (maxPrice !== null) {
+
+    if (maxPrice) {
       filtered = filtered.filter(
-        (h) => h.price && parseFloat(h.price) < maxPrice
+        h => parseFloat(h.price) < maxPrice
       );
     }
 
