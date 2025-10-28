@@ -25,7 +25,7 @@ if (!port) {
 const server = http.createServer((req, res) => { //Створення сервера, що приймає функцію-обробник (req, res)
     const url = new URL(req.url, `http://${host}:${port}`);
     const furnished = url.searchParams.get('furnished') === 'true';
-    const maxPrice = url.searchParams.get('max_price')?parseFloat(url.searchParams.get('max_price')):null;
+    const maxPrice = url.searchParams.get('max_price');
 
     readFile(input, 'utf-8', (err, data) => {
 
