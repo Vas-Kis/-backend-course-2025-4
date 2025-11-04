@@ -40,7 +40,7 @@ const server = http.createServer((req, res) => { //Створення серве
     const furnishedtrue = url.searchParams.get('furnished')==='true';
     if (furnishedtrue) {
       filtered = filtered.filter(
-        h => h.furnishingstatus && h.furnishingstatus.toLowerCase() === 'furnished'
+        h => h.furnishingstatus === 'furnished'
       );
     } else {
       filtered = filtered.filter(house=>house.furnishingstatus==="unfurnished"||"semi-furnished")
