@@ -29,7 +29,7 @@ const server = http.createServer((req, res) => { //Створення серве
 
     readFile(input, 'utf-8', (err, data) => {
 
-    // Перетворення JSON Lines → масив об'єктів
+    // Перетворення JSON Lines на масив об'єктів
     const lines = data.split('\n').filter(line => line.trim() !== '');
     let houses = lines.map(line => JSON.parse(line));
 
@@ -37,10 +37,13 @@ const server = http.createServer((req, res) => { //Створення серве
 
     let filtered = houses;
 
-    if (furnished) {
+    const furnishedtrue = url.searchParams.get('furnished')==='true';
+    if (furnishedtrue) {
       filtered = filtered.filter(
-        h => h.furnishingstatus.toLowerCase() === furnished.toLowerCase()
+        h => h.furnishingstatus && h.furnishingstatus.toLowerCase() === 'furnished'
       );
+    } else {
+      filtered = filtered.filter(house=>house.furnishingstatus==="unfurnished"||"semi-furnished")
     }
 
     if (maxPrice) {
